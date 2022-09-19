@@ -2,7 +2,7 @@ import os
 import sys
 import subprocess
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QMainWindow,
     QApplication,
     QWidget,
@@ -12,13 +12,15 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QTextEdit,
 )
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     Qt,
     QEasingCurve,
 )
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QPixmap,
     QIcon,
+    QPalette,
+    QColor,
 )
 
 from MangoUI import Button, Slider
@@ -28,183 +30,183 @@ import textwrap
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initConfig()
-        self.initStyles()
-        self.initTextWrapper()
-        self.initUI()
+        self.init_config()
+        self.init_styles()
+        self.init_text_wrapper()
+        self.init_ui()
 
-    def initConfig(self):
-        self._width = 1400
-        self._height = 800
+    def init_config(self):
+        self._width = 800
+        self._height = 600
         self._xPos = 330
-        self._yPos = -900
+        self._yPos = 200
 
-        self.scriptDir = os.path.dirname(os.path.realpath(__file__))
-        self.imgLogoSmallPath = os.path.join(self.scriptDir, 'img/gitmsg_logo_small.png')
-        self.imgIconPath = os.path.join(self.scriptDir, 'img/gitmsg_icon.png')
+        self.script_dir = os.path.dirname(os.path.realpath(__file__))
+        self.img_logo_small_path = os.path.join(self.script_dir, 'img/gitmsg_logo_small.png')
+        self.img_icon_path = os.path.join(self.script_dir, 'img/gitmsg_icon.png')
 
-        self.summaryLimit = 50
-        self.bodyWrapLimit = 72
+        self.summary_limit = 50
+        self.body_wrap_limit = 72
 
-        self.exportFilename = 'gitmsg.txt'
+        self.export_file_name = 'gitmsg.txt'
 
-    def initStyles(self):
-        self.primaryBackgroundColor = 'rgb(23, 11, 59)'
-        self.secondaryBackgroundColor = 'rgb(52, 25, 72)'
-        self.primaryColor = 'rgb(13, 0, 26)'
-        self.secondaryColor = 'rgb(255, 51, 153)'
-        self.textColor = 'rgb(255, 255, 255)'
+    def init_styles(self):
+        self.primary_background_color = 'rgb(23, 11, 59)'
+        self.secondary_background_color = 'rgb(52, 25, 72)'
+        self.primary_color = 'rgb(13, 0, 26)'
+        self.secondary_color = 'rgb(255, 51, 153)'
+        self.text_color = 'rgb(255, 255, 255)'
 
-        self.fontFamily = 'Consolas'
-        self.fontSize = 11
+        self.font_family = 'Consolas'
+        self.font_size = 11
 
-        self.borderColor = 'rgb(128, 0, 64)'
-        self.borderRadius = 3
+        self.border_color = 'rgb(128, 0, 64)'
+        self.border_radius = 3
 
-    def initTextWrapper(self):
+    def init_text_wrapper(self):
         self.msg = ''
-        self.wrapper = textwrap.TextWrapper(width = self.bodyWrapLimit, replace_whitespace = False)
+        self.wrapper = textwrap.TextWrapper(width = self.body_wrap_limit, replace_whitespace = False)
 
-    def initUI(self):
+    def init_ui(self):
         self.setGeometry(self._xPos, self._yPos, self._width, self._height)
         self.setWindowTitle('gitmsg')
-        self.setWindowIcon(QIcon(self.imgIconPath))
+        self.setWindowIcon(QIcon(self.img_icon_path))
 
         self.setStyleSheet(f'''
             QMainWindow {{
-                background: QLinearGradient(x1:0 y1:0, x2:1 y2:0, stop:0 {self.primaryBackgroundColor}, stop:1 {self.secondaryBackgroundColor});
+                background: QLinearGradient(x1:0 y1:0, x2:1 y2:0, stop:0 {self.primary_background_color}, stop:1 {self.secondary_background_color});
             }}
         ''')
 
-        self.mainLayout = QVBoxLayout()
-        self.editorLayout = QHBoxLayout()
+        self.main_layout = QVBoxLayout()
+        self.editor_layout = QHBoxLayout()
 
-        self.inputsLayout = QVBoxLayout()
-        self.actionButtonsLayout = QHBoxLayout()
+        self.inputs_layout = QVBoxLayout()
+        self.action_buttons_layout = QHBoxLayout()
 
-        self.previewLayout = QVBoxLayout()
+        self.preview_layout = QVBoxLayout()
 
-        self.summaryLabel = QLabel()
-        self.summaryLabel.setText('Summary')
-        self.summaryLabel.setStyleSheet(f'''
+        self.summary_label = QLabel()
+        self.summary_label.setText('Summary')
+        self.summary_label.setStyleSheet(f'''
             QLabel {{
-                color: {self.textColor};
-                font-size: {self.fontSize}pt;
+                color: {self.text_color};
+                font-size: {self.font_size}pt;
             }}
         ''')
 
         self.summary = QLineEdit()
         self.summary.setStyleSheet(f'''
             QLineEdit {{
-                color: {self.textColor};
-                background-color: {self.primaryColor};
-                font-size: {self.fontSize}pt;
-                border: 1px solid {self.borderColor};
-                border-radius: {self.borderRadius}px;
+                color: {self.text_color};
+                background-color: {self.primary_color};
+                font-size: {self.font_size}pt;
+                border: 1px solid {self.border_color};
+                border-radius: {self.border_radius}px;
             }}
         ''')
-        self.summary.setMaxLength(self.summaryLimit)
-        self.summary.textChanged.connect(self.displayMsg)
+        self.summary.setMaxLength(self.summary_limit)
+        self.summary.textChanged.connect(self.display_msg)
 
-        self.bodyLabel = QLabel()
-        self.bodyLabel.setText('Body')
-        self.bodyLabel.setStyleSheet(f'''
+        self.body_label = QLabel()
+        self.body_label.setText('Body')
+        self.body_label.setStyleSheet(f'''
             QLabel {{
-                color: {self.textColor};
-                font-size: {self.fontSize}pt;
+                color: {self.text_color};
+                font-size: {self.font_size}pt;
             }}
         ''')
 
         self.body = QTextEdit()
         self.body.setStyleSheet(f'''
             QTextEdit {{
-                color: {self.textColor};
-                background-color: {self.primaryColor};
-                font-size: {self.fontSize}pt;
-                border: 1px solid {self.borderColor};
-                border-radius: {self.borderRadius}px;
+                color: {self.text_color};
+                background-color: {self.primary_color};
+                font-size: {self.font_size}pt;
+                border: 1px solid {self.border_color};
+                border-radius: {self.border_radius}px;
             }}
         ''')
-        self.body.textChanged.connect(self.displayMsg)
+        self.body.textChanged.connect(self.display_msg)
 
-        self.exportButton = Button(
-            primaryColor = self.secondaryColor,
-            secondaryColor = self.primaryBackgroundColor,
-            parentBackgroundColor = self.primaryColor,
+        self.export_button = Button(
+            primaryColor = self.secondary_color,
+            secondaryColor = self.primary_background_color,
+            parentBackgroundColor = self.primary_color,
             borderWidth = 1,
             borderRadius = 3,
-            fontSize = self.fontSize,
+            fontSize = self.font_size,
         )
-        self.exportButton.setText('Export')
-        self.exportButton.clicked.connect(self.exportMsg)
+        self.export_button.setText('Export')
+        self.export_button.clicked.connect(self.export_msg)
 
-        self.commitButton = Button(
-            primaryColor = self.secondaryColor,
-            secondaryColor = self.primaryBackgroundColor,
-            parentBackgroundColor = self.primaryColor,
+        self.commit_button = Button(
+            primaryColor = self.secondary_color,
+            secondaryColor = self.primary_background_color,
+            parentBackgroundColor = self.primary_color,
             borderWidth = 1,
             borderRadius = 3,
-            fontSize = self.fontSize,
+            fontSize = self.font_size,
         )
-        self.commitButton.setText('Commit')
-        self.commitButton.clicked.connect(self.commitMsg)
+        self.commit_button.setText('Commit')
+        self.commit_button.clicked.connect(self.commit_msg)
 
-        self.logoPixmap = QPixmap(self.imgLogoSmallPath)
-        self.logoPixmap.scaledToWidth(20)
+        self.logo_pixmap = QPixmap(self.img_logo_small_path)
+        self.logo_pixmap.scaledToWidth(20)
 
-        self.logoLabel = QLabel()
-        self.logoLabel.setPixmap(self.logoPixmap)
+        self.logo_label = QLabel()
+        self.logo_label.setPixmap(self.logo_pixmap)
 
-        self.previewLabel = QLabel()
-        self.previewLabel.setText('Preview')
-        self.previewLabel.setStyleSheet(f'''
+        self.preview_label = QLabel()
+        self.preview_label.setText('Preview')
+        self.preview_label.setStyleSheet(f'''
             QLabel {{
-                color: {self.textColor};
-                font-size: {self.fontSize}pt;
+                color: {self.text_color};
+                font-size: {self.font_size}pt;
             }}
         ''')
 
         self.preview = QTextEdit()
         self.preview.setStyleSheet(f'''
             QTextEdit {{
-                color: {self.secondaryColor};
-                background-color: {self.primaryColor};
-                font-family: {self.fontFamily};
-                font-size: {self.fontSize}pt;
-                border: 1px solid {self.borderColor};
-                border-radius: {self.borderRadius}px;
+                color: {self.secondary_color};
+                background-color: {self.primary_color};
+                font-family: {self.font_family};
+                font-size: {self.font_size}pt;
+                border: 1px solid {self.border_color};
+                border-radius: {self.border_radius}px;
             }}
         ''')
         self.preview.setReadOnly(True)
 
-        self.inputsLayout.addWidget(self.summaryLabel)
-        self.inputsLayout.addWidget(self.summary)
+        self.inputs_layout.addWidget(self.summary_label)
+        self.inputs_layout.addWidget(self.summary)
 
-        self.inputsLayout.addWidget(self.bodyLabel)
-        self.inputsLayout.addWidget(self.body)
+        self.inputs_layout.addWidget(self.body_label)
+        self.inputs_layout.addWidget(self.body)
 
-        self.previewLayout.addWidget(self.previewLabel)
-        self.previewLayout.addWidget(self.preview)
+        self.preview_layout.addWidget(self.preview_label)
+        self.preview_layout.addWidget(self.preview)
 
-        self.editorLayout.addLayout(self.inputsLayout)
-        self.editorLayout.addLayout(self.previewLayout)
+        self.editor_layout.addLayout(self.inputs_layout)
+        self.editor_layout.addLayout(self.preview_layout)
 
-        self.actionButtonsLayout.addWidget(self.exportButton)
-        self.actionButtonsLayout.addWidget(self.commitButton)
-        self.actionButtonsLayout.addStretch()
-        self.actionButtonsLayout.addWidget(self.logoLabel)
+        self.action_buttons_layout.addWidget(self.export_button)
+        self.action_buttons_layout.addWidget(self.commit_button)
+        self.action_buttons_layout.addStretch()
+        self.action_buttons_layout.addWidget(self.logo_label)
 
-        self.mainLayout.addLayout(self.editorLayout)
-        self.mainLayout.addLayout(self.actionButtonsLayout)
+        self.main_layout.addLayout(self.editor_layout)
+        self.main_layout.addLayout(self.action_buttons_layout)
 
-        self.centralWidget = QWidget(self)
-        self.centralWidget.setLayout(self.mainLayout)
-        self.setCentralWidget(self.centralWidget)
+        self.central_widget = QWidget(self)
+        self.central_widget.setLayout(self.main_layout)
+        self.setCentralWidget(self.central_widget)
 
         self.show()
 
-    def displayMsg(self):
-        summary = self.summary.text()[:self.summaryLimit]
+    def display_msg(self):
+        summary = self.summary.text()[:self.summary_limit]
         if len(summary.strip()) > 0:
             summary += '\n\n'
 
@@ -215,17 +217,17 @@ class Window(QMainWindow):
         self.msg = summary + body
         self.preview.setText(self.msg)
 
-    def exportMsg(self):
-        self.displayMsg()
-        with open(self.exportFilename, 'w') as exportFile:
-            exportFile.write(self.msg)
+    def export_msg(self):
+        self.display_msg()
+        with open(self.export_file_name, 'w') as f:
+            f.write(self.msg)
 
-    def commitMsg(self):
-        self.exportMsg()
-        cmd = f'git commit -F {self.exportFilename}'
+    def commit_msg(self):
+        self.export_msg()
+        cmd = f'git commit -F {self.export_file_name}'
         subprocess.run(cmd.split())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    myWin = Window()
-    sys.exit(app.exec_())
+    my_win = Window()
+    sys.exit(app.exec())
