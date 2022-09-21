@@ -36,7 +36,6 @@ jobs:
     - name: Install GUI dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install gtk
         pip install -r gui/requirements.txt
 
     - name: Run unit tests
