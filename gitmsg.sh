@@ -9,7 +9,7 @@ elif [ -d $PYTHON_VENV_PATH/Scripts ]; then
     PYTHON_VENV_EXEC_PATH=$PYTHON_VENV_PATH/Scripts
 else
     echo "Error: Python venv binaries not found, please run setup.sh" >&2
-    exit 1
+    exit 2
 fi
 
 if [ -f $PYTHON_VENV_EXEC_PATH/python3 ]; then
@@ -18,7 +18,7 @@ elif [ -f $PYTHON_VENV_EXEC_PATH/python ]; then
     PYTHON_CMD_PATH=$PYTHON_VENV_EXEC_PATH/python
 else
     echo "Error: python command not found, please run setup.sh" >&2
-    exit 1
+    exit 2
 fi
 
 if [ -f $SCRIPT_DIR/cli/gitmsg ]; then
@@ -27,7 +27,7 @@ elif [ -f $SCRIPT_DIR/cli/gitmsg.exe ]; then
     GO_EXEC_PATH=$SCRIPT_DIR/cli/gitmsg.exe
 else
     echo "Golang executable not found, please run setup.sh" >&2
-    exit 1
+    exit 2
 fi
 
 function print_help() {
@@ -49,14 +49,14 @@ while getopts "gch" flag; do
         c)  CLI_MODE=1;;
         h)  print_help
             exit 0;;
-        *)  exit 128;;
+        *)  exit 22;;
     esac
 done
 
 if [[ ! $((GUI_MODE + CLI_MODE)) -eq 1 ]]; then
     echo "Error: please choose a mode: -g (GUI mode) or -c (CLI mode)"
     print_help
-    exit 1
+    exit 22
 fi
 
 if [[ "$GUI_MODE" -eq 1 ]]; then
@@ -67,5 +67,5 @@ elif [[ "$CLI_MODE" -eq 1 ]]; then
 else
     echo "Error: please choose a mode: -g (GUI mode) or -c (CLI mode)"
     print_help
-    exit 1
+    exit 22
 fi

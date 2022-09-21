@@ -33,7 +33,7 @@ elif [ -d $PYTHON_VENV_PATH/Scripts ]; then
     PYTHON_VENV_EXEC_PATH=$PYTHON_VENV_PATH/Scripts
 else
     echo "Error: Python venv binaries not found" >&2
-    exit 1
+    exit 2
 fi
 
 echo "Getting python command in virual environment"
@@ -43,7 +43,7 @@ elif [ -f $PYTHON_VENV_EXEC_PATH/python ]; then
     PYTHON_CMD_PATH=$PYTHON_VENV_EXEC_PATH/python
 else
     echo "Error: python command not found" >&2
-    exit 1
+    exit 2
 fi
 
 echo "Found python command"
