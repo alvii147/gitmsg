@@ -12,20 +12,22 @@ from PyQt6.QtWidgets import (
     QLineEdit,
     QTextEdit,
 )
-from PyQt6.QtCore import (
-    Qt,
-    QEasingCurve,
-)
 from PyQt6.QtGui import (
     QPixmap,
     QIcon,
-    QPalette,
-    QColor,
 )
-
 from MangoUI import Button
-
+import json
 import textwrap
+
+
+DEFAULT_SETTINGS = {
+    "_width": 800,
+    "_height": 600,
+    "_x_pos": 300,
+    "_y_pos": 200,
+}
+
 
 class Window(QMainWindow):
     def __init__(self):
@@ -36,12 +38,21 @@ class Window(QMainWindow):
         self.init_ui()
 
     def init_config(self):
-        self._width = 800
-        self._height = 600
-        self._xPos = 330
-        self._yPos = 200
-
         self.script_dir = os.path.dirname(os.path.realpath(__file__))
+        self.settings_file_name = os.path.join(self.script_dir, '.cached_settings')
+
+        for attr, value in DEFAULT_SETTINGS.items():
+            setattr(self, attr, value)
+
+        try:
+            with open(self.settings_file_name, 'r') as f:
+                cached_settings = json.load(f)
+
+                for attr, value in cached_settings.items():
+                    setattr(self, attr, value)
+        except IOError:
+            pass
+
         self.img_logo_small_path = os.path.join(self.script_dir, '../img/gitmsg_logo_small.png')
         self.img_icon_path = os.path.join(self.script_dir, '../img/gitmsg_icon.png')
 
@@ -68,7 +79,7 @@ class Window(QMainWindow):
         self.wrapper = textwrap.TextWrapper(width = self.body_wrap_limit, replace_whitespace = False)
 
     def init_ui(self):
-        self.setGeometry(self._xPos, self._yPos, self._width, self._height)
+        self.setGeometry(self._x_pos, self._y_pos, self._width, self._height)
         self.setWindowTitle('gitmsg')
         self.setWindowIcon(QIcon(self.img_icon_path))
 
@@ -226,6 +237,38 @@ class Window(QMainWindow):
         self.export_msg()
         cmd = f'git commit -F {self.export_file_name}'
         subprocess.run(cmd.split())
+
+    def resizeEvent(self, a0):
+        _width, _height = a0.size().width(), a0.size().height()
+        try:
+            with open(self.settings_file_name, 'r') as f:
+                cached_settings = json.load(f)
+        except IOError:
+            cached_settings = {}
+
+        cached_settings['_width'] = _width
+        cached_settings['_height'] = _height
+
+        with open(self.settings_file_name, 'w') as f:
+            json.dump(cached_settings, f)
+
+        return super().resizeEvent(a0)
+
+    def moveEvent(self, a0):
+        _x_pos, _y_pos = a0.pos().x(), a0.pos().y()
+        try:
+            with open(self.settings_file_name, 'r') as f:
+                cached_settings = json.load(f)
+        except IOError:
+            cached_settings = {}
+
+        cached_settings['_x_pos'] = _x_pos
+        cached_settings['_y_pos'] = _y_pos
+
+        with open(self.settings_file_name, 'w') as f:
+            json.dump(cached_settings, f)
+
+        return super().moveEvent(a0)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
