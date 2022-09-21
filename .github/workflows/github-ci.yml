@@ -24,6 +24,7 @@ jobs:
 
     - name: Install system dependencies
       run: |
+        sudo add-apt-repository universe
         sudo apt-get update -y
         sudo apt-get install python3-setuptools
         sudo apt-get install -y libegl1-mesa python3-pyqt6
