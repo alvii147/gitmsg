@@ -45,7 +45,7 @@ Options:
 gitmsg -g
 ```
 
-![gitmsgGUI screenshot](img/gui_screenshot.png)
+![GUI screenshot](img/gui_screenshot.png)
 
 ### CLI mode
 
@@ -53,4 +53,4 @@ gitmsg -g
 gitmsg -c
 ```
 
-![gitmsgCLI screenshot](img/cli_screenshot.png)
+![CLI screenshot](img/cli_screenshot.png)
