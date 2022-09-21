@@ -1,11 +1,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 PYTHON_VENV_NAME=.venv
-<<<<<<< HEAD
 PYTHON_VENV_PATH=$SCRIPT_DIR/gui/$PYTHON_VENV_NAME
-=======
-PYTHON_VENV_PATH=$SCRIPT_DIR/gitmsgGUI/$PYTHON_VENV_NAME
->>>>>>> 1eddef0f2c75bc1c9cc7cd16349773e9f0bae73e
 
 if [ -d $PYTHON_VENV_PATH/bin ]; then
     PYTHON_VENV_EXEC_PATH=$PYTHON_VENV_PATH/bin
