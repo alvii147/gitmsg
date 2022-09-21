@@ -25,6 +25,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update -y
+        sudo apt-get install python3-setuptools
         sudo apt-get install -y libegl1-mesa python3-pyqt6
       continue-on-error: true
 
