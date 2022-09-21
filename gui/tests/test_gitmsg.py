@@ -54,10 +54,8 @@ class TestGitmsgGUI(TestCase):
         self.window.summary.setText(summary)
         self.window.body.setText(' '.join(body))
 
-        # QTest.mouseClick(self.window.copy_button, Qt.MouseButton.LeftButton)
-        # self.assertEqual(pyperclip.paste(), expected_msg)
         m = mock.MagicMock()
         with mock.patch('pyperclip.copy', m):
             QTest.mouseClick(self.window.copy_button, Qt.MouseButton.LeftButton)
 
-        print(m.assert_called_once_with(expected_msg))
+        m.assert_called_once_with(expected_msg)

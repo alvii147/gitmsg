@@ -175,13 +175,4 @@ func TestRun(t *testing.T) {
 	reader := bufio.NewReader(&stdin)
 
 	cli.Run(reader)
-
-	// clipboardContents, err := clipboard.ReadAll()
-	// if err != nil {
-	// 	t.Error("error reading clipboard")
-	// }
-
-	// if !strings.Contains(clipboardContents, summary) {
-	// 	t.Errorf("cli.Run failed to write summary %s to clipboard", summary)
-	// }
 }
