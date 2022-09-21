@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"gitmsg/cli"
 	"os"
 )
 
 func main() {
-	cli.Run(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
+	cli.Run(reader)
 }

@@ -17,6 +17,7 @@ func GenerateRandomString(length int) string {
 }
 
 func GenerateRandomSentence(numWords int, maxWordLen int) string {
+	rand.Seed(time.Now().UnixNano())
 	randomWords := make([]string, numWords)
 
 	for i := range randomWords {

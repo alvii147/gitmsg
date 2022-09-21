@@ -1,6 +1,7 @@
 package cli_test
 
 import (
+	"bufio"
 	"bytes"
 	"gitmsg/cli"
 	"gitmsg/utils"
@@ -8,6 +9,8 @@ import (
 	"strings"
 	"testing"
 	"unicode/utf8"
+
+	"github.com/atotto/clipboard"
 )
 
 func TestIsValidSummaryValidInput(t *testing.T) {
@@ -33,8 +36,9 @@ func TestGetSummaryValidInput(t *testing.T) {
 
 	var stdin bytes.Buffer
 	stdin.Write([]byte(validSummary + "\n"))
+	reader := bufio.NewReader(&stdin)
 
-	summary := cli.GetSummary(&stdin)
+	summary := cli.GetSummary(reader)
 	if summary != validSummary {
 		t.Errorf("cli.AddSummary returned summary = %s, expected %s", summary, validSummary)
 	}
@@ -46,8 +50,9 @@ func TestGetSummaryInvalidAndValidInputs(t *testing.T) {
 
 	var stdin bytes.Buffer
 	stdin.Write([]byte(invalidSummary + "\n" + validSummary + "\n"))
+	reader := bufio.NewReader(&stdin)
 
-	summary := cli.GetSummary(&stdin)
+	summary := cli.GetSummary(reader)
 	if summary != validSummary {
 		t.Errorf("cli.AddSummary returned summary %s, expected %s", summary, validSummary)
 	}
@@ -60,8 +65,9 @@ func TestGetParagraph(t *testing.T) {
 
 	var stdin bytes.Buffer
 	stdin.Write([]byte(randomParagraph + "\n"))
+	reader := bufio.NewReader(&stdin)
 
-	paragraph := cli.GetParagraph(&stdin)
+	paragraph := cli.GetParagraph(reader)
 
 	lines := strings.Split(paragraph, "\n")
 	for _, line := range lines {
@@ -83,8 +89,9 @@ func TestGetBulletPoints(t *testing.T) {
 
 	var stdin bytes.Buffer
 	stdin.Write([]byte(randomBulletPoints + "\n\n"))
+	reader := bufio.NewReader(&stdin)
 
-	bulletPoints := cli.GetBulletPoints(&stdin)
+	bulletPoints := cli.GetBulletPoints(reader)
 
 	bulletPointCount := 0
 	lines := strings.Split(bulletPoints, "\n")
@@ -114,8 +121,9 @@ func TestPromptSelectValidInput(t *testing.T) {
 	selection := 3
 	var stdin bytes.Buffer
 	stdin.Write([]byte(strconv.Itoa(selection) + "\n"))
+	reader := bufio.NewReader(&stdin)
 
-	chosenOption := cli.PromptSelect(&stdin, options)
+	chosenOption := cli.PromptSelect(reader, options)
 	if chosenOption != selection {
 		t.Errorf("cli.PromptSelect returned  option %d, expected %d", chosenOption, selection)
 	}
@@ -140,9 +148,42 @@ func TestPromptSelectInvalidAndValidInput(t *testing.T) {
 			strconv.Itoa(invalidSelection3) + "\n" +
 			strconv.Itoa(validSelection) + "\n",
 	))
+	reader := bufio.NewReader(&stdin)
 
-	chosenOption := cli.PromptSelect(&stdin, options)
+	chosenOption := cli.PromptSelect(reader, options)
 	if chosenOption != validSelection {
 		t.Errorf("cli.PromptSelect returned  option %d, expected %d", chosenOption, validSelection)
+	}
+}
+
+func TestRun(t *testing.T) {
+	numWords := 50
+	maxWordLen := 8
+
+	summary := utils.GenerateRandomString(cli.SUMMARY_MAX_LENGTH / 2)
+	paragraph := utils.GenerateRandomSentence(numWords, maxWordLen)
+
+	var stdin bytes.Buffer
+	stdin.Write(
+		[]byte(
+			summary + "\n" +
+				"1\n" +
+				paragraph + "\n" +
+				"3\n" +
+				"2\n" +
+				"3\n",
+		),
+	)
+	reader := bufio.NewReader(&stdin)
+
+	cli.Run(reader)
+
+	clipboardContents, err := clipboard.ReadAll()
+	if err != nil {
+		t.Error("error reading clipboard")
+	}
+
+	if !strings.Contains(clipboardContents, summary) {
+		t.Errorf("cli.Run failed to write summary %s to clipboard", summary)
 	}
 }

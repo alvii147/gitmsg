@@ -3,7 +3,6 @@ package cli
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -17,11 +16,10 @@ func IsValidSummary(summary string) bool {
 	return utf8.RuneCountInString(summary) <= SUMMARY_MAX_LENGTH
 }
 
-func GetSummary(stdin io.Reader) string {
+func GetSummary(reader *bufio.Reader) string {
 	var summary string
 	var err error
 	loopCond := true
-	reader := bufio.NewReader(stdin)
 
 	SECONDARY_COLOR.Println("\nAdd Summary")
 
@@ -44,11 +42,10 @@ func GetSummary(stdin io.Reader) string {
 	return summary
 }
 
-func GetParagraph(stdin io.Reader) string {
+func GetParagraph(reader *bufio.Reader) string {
 	var paragraph string
 	var err error
 	loopCond := true
-	reader := bufio.NewReader(stdin)
 
 	SECONDARY_COLOR.Println("\nAdd Paragraph")
 
@@ -71,12 +68,11 @@ func GetParagraph(stdin io.Reader) string {
 	return paragraph
 }
 
-func GetBulletPoints(stdin io.Reader) string {
+func GetBulletPoints(reader *bufio.Reader) string {
 	var point string
 	var pointsSlice []string
 	var err error
 	loopCond := true
-	reader := bufio.NewReader(stdin)
 
 	SECONDARY_COLOR.Println("\nAdd Bullet Points")
 
@@ -107,12 +103,11 @@ func GetBulletPoints(stdin io.Reader) string {
 	return pointsStr
 }
 
-func PromptSelect(stdin io.Reader, options []string) int {
+func PromptSelect(reader *bufio.Reader, options []string) int {
 	var selectionStr string
 	var selectionInt int
 	var err error
 	loopCond := true
-	reader := bufio.NewReader(stdin)
 
 	SECONDARY_COLOR.Println("\nSelect Option")
 
@@ -143,7 +138,7 @@ func PromptSelect(stdin io.Reader, options []string) int {
 	return selectionInt
 }
 
-func Run(stdin io.Reader) {
+func Run(reader *bufio.Reader) {
 	PRIMARY_COLOR_FLIPPED.Println(PROJECT_DESCRIPTION)
 	PRIMARY_COLOR.Println(PROJECT_LOGO_ASCII_ART)
 	PRIMARY_COLOR.Println(PROJECT_TITLE_ASCII_ART)
@@ -151,7 +146,7 @@ func Run(stdin io.Reader) {
 	fmt.Print("\n")
 
 	var messageSlice []string
-	messageSlice = append(messageSlice, GetSummary(stdin))
+	messageSlice = append(messageSlice, GetSummary(reader))
 
 	options := []string{
 		"Add Paragraph",
@@ -160,14 +155,14 @@ func Run(stdin io.Reader) {
 	}
 	loopCond := true
 	for loopCond {
-		switch PromptSelect(stdin, options) {
+		switch PromptSelect(reader, options) {
 		case 1:
-			paragraph := GetParagraph(stdin)
+			paragraph := GetParagraph(reader)
 			if utf8.RuneCountInString(strings.TrimSpace(paragraph)) > 0 {
 				messageSlice = append(messageSlice, paragraph)
 			}
 		case 2:
-			points := GetBulletPoints(stdin)
+			points := GetBulletPoints(reader)
 			if utf8.RuneCountInString(strings.TrimSpace(points)) > 0 {
 				messageSlice = append(messageSlice, points)
 			}
@@ -189,7 +184,7 @@ func Run(stdin io.Reader) {
 	}
 	loopCond = true
 	for loopCond {
-		switch PromptSelect(stdin, options) {
+		switch PromptSelect(reader, options) {
 		case 1:
 			f, err := os.Create(MESSAGE_FILE_NAME)
 			if err != nil {
