@@ -94,7 +94,7 @@ func TestGetBulletPoints(t *testing.T) {
 	bulletPointCount := 0
 	lines := strings.Split(bulletPoints, "\n")
 	for _, line := range lines {
-		if line[:2] == "- " {
+		if utf8.RuneCountInString(line) > 1 && line[:2] == "- " {
 			bulletPointCount += 1
 		}
 
