@@ -42,8 +42,8 @@ class Window(QMainWindow):
         self._yPos = 200
 
         self.script_dir = os.path.dirname(os.path.realpath(__file__))
-        self.img_logo_small_path = os.path.join(self.script_dir, 'img/gitmsg_logo_small.png')
-        self.img_icon_path = os.path.join(self.script_dir, 'img/gitmsg_icon.png')
+        self.img_logo_small_path = os.path.join(self.script_dir, '../img/gitmsg_logo_small.png')
+        self.img_icon_path = os.path.join(self.script_dir, '../img/gitmsg_icon.png')
 
         self.summary_limit = 50
         self.body_wrap_limit = 72
