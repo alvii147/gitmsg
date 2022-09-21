@@ -23,7 +23,7 @@ from PyQt6.QtGui import (
     QColor,
 )
 
-from MangoUI import Button, Slider
+from MangoUI import Button
 
 import textwrap
 
