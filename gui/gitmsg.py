@@ -1,6 +1,6 @@
 import os
 import sys
-import subprocess
+import json
 
 from PyQt6.QtWidgets import (
     QMainWindow,
@@ -17,7 +17,7 @@ from PyQt6.QtGui import (
     QIcon,
 )
 from MangoUI import Button
-import json
+import pyperclip
 import textwrap
 
 
@@ -29,7 +29,7 @@ DEFAULT_SETTINGS = {
 }
 
 
-class Window(QMainWindow):
+class GitmsgGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.init_config()
@@ -148,10 +148,10 @@ class Window(QMainWindow):
             borderRadius = 3,
             fontSize = self.font_size,
         )
-        self.export_button.setText('Export')
+        self.export_button.setText('Export Message')
         self.export_button.clicked.connect(self.export_msg)
 
-        self.commit_button = Button(
+        self.copy_button = Button(
             primaryColor = self.secondary_color,
             secondaryColor = self.primary_background_color,
             parentBackgroundColor = self.primary_color,
@@ -159,8 +159,8 @@ class Window(QMainWindow):
             borderRadius = 3,
             fontSize = self.font_size,
         )
-        self.commit_button.setText('Commit')
-        self.commit_button.clicked.connect(self.commit_msg)
+        self.copy_button.setText('Copy to Clipboard')
+        self.copy_button.clicked.connect(self.copy_msg)
 
         self.logo_pixmap = QPixmap(self.img_logo_small_path)
         self.logo_pixmap.scaledToWidth(20)
@@ -203,7 +203,7 @@ class Window(QMainWindow):
         self.editor_layout.addLayout(self.preview_layout)
 
         self.action_buttons_layout.addWidget(self.export_button)
-        self.action_buttons_layout.addWidget(self.commit_button)
+        self.action_buttons_layout.addWidget(self.copy_button)
         self.action_buttons_layout.addStretch()
         self.action_buttons_layout.addWidget(self.logo_label)
 
@@ -233,10 +233,9 @@ class Window(QMainWindow):
         with open(self.export_file_name, 'w') as f:
             f.write(self.msg)
 
-    def commit_msg(self):
-        self.export_msg()
-        cmd = f'git commit -F {self.export_file_name}'
-        subprocess.run(cmd.split())
+    def copy_msg(self):
+        self.display_msg()
+        pyperclip.copy(self.msg)
 
     def resizeEvent(self, a0):
         _width, _height = a0.size().width(), a0.size().height()
@@ -250,7 +249,7 @@ class Window(QMainWindow):
         cached_settings['_height'] = _height
 
         with open(self.settings_file_name, 'w') as f:
-            json.dump(cached_settings, f)
+            json.dump(cached_settings, f, indent=4, sort_keys=True)
 
         return super().resizeEvent(a0)
 
@@ -266,11 +265,11 @@ class Window(QMainWindow):
         cached_settings['_y_pos'] = _y_pos
 
         with open(self.settings_file_name, 'w') as f:
-            json.dump(cached_settings, f)
+            json.dump(cached_settings, f, indent=4, sort_keys=True)
 
         return super().moveEvent(a0)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_win = Window()
+    window = GitmsgGUI()
     sys.exit(app.exec())
