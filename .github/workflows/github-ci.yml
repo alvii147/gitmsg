@@ -9,6 +9,8 @@ on:
 jobs:
   gui-tests:
     runs-on: ${{ matrix.os }}
+    env:
+      QT_QPA_PLATFORM: offscreen
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
