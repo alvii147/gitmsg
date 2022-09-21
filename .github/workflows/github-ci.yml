@@ -24,7 +24,7 @@ jobs:
 
     - name: Install system dependencies
       run: |
-        sudo apt install libegl1-mesa python3-pyqt6
+        sudo apt-get install libegl1-mesa python3-pyqt6
       continue-on-error: true
 
     - name: Install GUI dependencies
