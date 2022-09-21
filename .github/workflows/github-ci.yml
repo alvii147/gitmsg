@@ -30,6 +30,7 @@ jobs:
         sudo add-apt-repository universe
         sudo apt-get update
         sudo apt-get install xclip python3-pyqt4 python3-pyqt5
+        sudo apt-get install xsel xclip '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
       continue-on-error: true
 
     - name: Install GUI dependencies
