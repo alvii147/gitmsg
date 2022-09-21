@@ -12,7 +12,7 @@ jobs:
     env:
       QT_QPA_PLATFORM: offscreen
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.8", "3.9", "3.10"]
@@ -29,9 +29,9 @@ jobs:
       run: |
         sudo add-apt-repository universe
         sudo apt-get update
-        sudo apt-get install xclip python3-pyqt4 python3-pyqt5
-        sudo apt-get install xsel xclip '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
-      continue-on-error: true
+        sudo apt-get install xclip python3-pyqt5
+        sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
+      if: matrix.os == 'ubuntu-latest'
 
     - name: Install GUI dependencies
       run: |
@@ -46,6 +46,7 @@ jobs:
   cli-tests:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         go-version: ["1.17", "1.18", "1.19"]
