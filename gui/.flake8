@@ -1,0 +1,21 @@
+[flake8]
+ignore =
+    D100,
+    D101,
+    D102,
+    D103,
+    D104,
+    D105,
+    D106,
+    D107,
+    D200,
+    D107,
+    W503
+
+max-line-length = 120
+
+exclude =
+    .py[co],
+    */__pycache__/*,
+    .venv/*
+    MangoUI/*

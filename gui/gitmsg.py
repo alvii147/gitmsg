@@ -30,6 +30,10 @@ DEFAULT_SETTINGS = {
 
 
 class GitmsgGUI(QMainWindow):
+    """
+    Graphical user interface for formatting Git commit messages.
+    """
+
     def __init__(self):
         super().__init__()
         self.init_config()
@@ -38,6 +42,9 @@ class GitmsgGUI(QMainWindow):
         self.init_ui()
 
     def init_config(self):
+        """
+        Set up configuration variables.
+        """
         self.script_dir = os.path.dirname(os.path.realpath(__file__))
         self.settings_file_name = os.path.join(self.script_dir, '.cached_settings')
 
@@ -62,6 +69,9 @@ class GitmsgGUI(QMainWindow):
         self.export_file_name = 'gitmsg.txt'
 
     def init_styles(self):
+        """
+        Set up UI styles.
+        """
         self.primary_background_color = 'rgb(23, 11, 59)'
         self.secondary_background_color = 'rgb(52, 25, 72)'
         self.primary_color = 'rgb(13, 0, 26)'
@@ -75,17 +85,27 @@ class GitmsgGUI(QMainWindow):
         self.border_radius = 3
 
     def init_text_wrapper(self):
+        """
+        Initiate text wrapper.
+        """
         self.msg = ''
-        self.wrapper = textwrap.TextWrapper(width = self.body_wrap_limit, replace_whitespace = False)
+        self.wrapper = textwrap.TextWrapper(width=self.body_wrap_limit, replace_whitespace=False)
 
     def init_ui(self):
+        """
+        Build UI using widgets and layouts.
+        """
         self.setGeometry(self._x_pos, self._y_pos, self._width, self._height)
         self.setWindowTitle('gitmsg')
         self.setWindowIcon(QIcon(self.img_icon_path))
 
+        gradient = (
+            'x1:0 y1:0, x2:1 y2:0, stop:0 '
+            f'{self.primary_background_color}, stop:1 {self.secondary_background_color}'
+        )
         self.setStyleSheet(f'''
             QMainWindow {{
-                background: QLinearGradient(x1:0 y1:0, x2:1 y2:0, stop:0 {self.primary_background_color}, stop:1 {self.secondary_background_color});
+                background: QLinearGradient({gradient});
             }}
         ''')
 
@@ -141,23 +161,23 @@ class GitmsgGUI(QMainWindow):
         self.body.textChanged.connect(self.display_msg)
 
         self.export_button = Button(
-            primaryColor = self.secondary_color,
-            secondaryColor = self.primary_background_color,
-            parentBackgroundColor = self.primary_color,
-            borderWidth = 1,
-            borderRadius = 3,
-            fontSize = self.font_size,
+            primaryColor=self.secondary_color,
+            secondaryColor=self.primary_background_color,
+            parentBackgroundColor=self.primary_color,
+            borderWidth=1,
+            borderRadius=3,
+            fontSize=self.font_size,
         )
         self.export_button.setText('Export Message')
         self.export_button.clicked.connect(self.export_msg)
 
         self.copy_button = Button(
-            primaryColor = self.secondary_color,
-            secondaryColor = self.primary_background_color,
-            parentBackgroundColor = self.primary_color,
-            borderWidth = 1,
-            borderRadius = 3,
-            fontSize = self.font_size,
+            primaryColor=self.secondary_color,
+            secondaryColor=self.primary_background_color,
+            parentBackgroundColor=self.primary_color,
+            borderWidth=1,
+            borderRadius=3,
+            fontSize=self.font_size,
         )
         self.copy_button.setText('Copy to Clipboard')
         self.copy_button.clicked.connect(self.copy_msg)
@@ -217,27 +237,39 @@ class GitmsgGUI(QMainWindow):
         self.show()
 
     def display_msg(self):
+        """
+        Format commit message and display on preview widget.
+        """
         summary = self.summary.text()[:self.summary_limit]
         if len(summary.strip()) > 0:
             summary += '\n\n'
 
         body = self.body.toPlainText()
-        body = ['\n'.join(self.wrapper.wrap(text = block)) for block in body.split('\n')]
+        body = ['\n'.join(self.wrapper.wrap(text=block)) for block in body.split('\n')]
         body = '\n'.join(body)
 
         self.msg = summary + body
         self.preview.setText(self.msg)
 
     def export_msg(self):
+        """
+        Export current commit message as file.
+        """
         self.display_msg()
         with open(self.export_file_name, 'w') as f:
             f.write(self.msg)
 
     def copy_msg(self):
+        """
+        Copy current commit message to clipboard.
+        """
         self.display_msg()
         pyperclip.copy(self.msg)
 
     def resizeEvent(self, a0):
+        """
+        Resize event for window.
+        """
         _width, _height = a0.size().width(), a0.size().height()
         try:
             with open(self.settings_file_name, 'r') as f:
@@ -254,6 +286,9 @@ class GitmsgGUI(QMainWindow):
         return super().resizeEvent(a0)
 
     def moveEvent(self, a0):
+        """
+        Move event for window.
+        """
         _x_pos, _y_pos = a0.pos().x(), a0.pos().y()
         try:
             with open(self.settings_file_name, 'r') as f:
@@ -268,6 +303,7 @@ class GitmsgGUI(QMainWindow):
             json.dump(cached_settings, f, indent=4, sort_keys=True)
 
         return super().moveEvent(a0)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

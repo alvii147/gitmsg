@@ -1,6 +1,5 @@
 import sys
 from unittest import TestCase, mock
-import pyperclip
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtTest import QTest
 from PyQt6.QtCore import Qt

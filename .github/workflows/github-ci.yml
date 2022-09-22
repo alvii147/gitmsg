@@ -33,15 +33,22 @@ jobs:
         sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
       if: matrix.os == 'ubuntu-latest'
 
-    - name: Install GUI dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install flake8 coverage
         pip install -r gui/requirements.txt
 
-    - name: Run unit tests
+    - name: Lint tests
       run: |
         cd gui/
-        python -m unittest -v
+        flake8 .
+
+    - name: Run unit tests with coverage
+      run: |
+        cd gui/
+        coverage run -m unittest -v
+        coverage report -m
 
   cli-tests:
     runs-on: ${{ matrix.os }}
