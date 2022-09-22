@@ -305,7 +305,7 @@ class GitmsgGUI(QMainWindow):
         return super().moveEvent(a0)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     app = QApplication(sys.argv)
     window = GitmsgGUI()
     sys.exit(app.exec())
