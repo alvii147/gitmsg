@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="gitmsg logo" height=200 src="img/gitmsg_logo.png" height=100 />
+    <img alt="gitmsg logo" src="img/gitmsg_logo.png" width=600 />
 </p>
 
 *gitmsg* is an application for writing git commit messages according to the [git 50/72 rule](https://www.midori-global.com/blog/2018/04/02/git-50-72-rule).
