@@ -3,14 +3,12 @@
 </p>
 
 <p align="center">
-
-**_gitmsg_** is an application for writing git commit messages according to the [git 50/72 rule](https://www.midori-global.com/blog/2018/04/02/git-50-72-rule).
-
+<strong><i>gitmsg</i></strong> is an application for writing git commit messages according to the <a href="https://www.midori-global.com/blog/2018/04/02/git-50-72-rule">git 50/72 rule</a>.
 </p>
 
 <div align="center">
 
-[![](https://img.shields.io/github/workflow/status/alvii147/gitmsg/Go%20GitHub%20CI?label=Tests&logo=github)](https://github.com/alvii147/gitmsg/actions) [![](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli)
+[![](https://img.shields.io/github/workflow/status/alvii147/gitmsg/GitHub%20CI%20Tests?label=Tests&logo=github)](https://github.com/alvii147/gitmsg/actions) [![](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli)
 
 </div>
 
