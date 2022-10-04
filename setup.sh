@@ -87,7 +87,7 @@ if [ ! $? -eq 0 ]; then
 fi
 
 echo "Building Go CLI"
-cd $SCRIPT_DIR/cli/ && go build && cd -
+cd $SCRIPT_DIR/cli/ && go build -o gitmsg . && cd -
 
 echo "Go CLI build completed"
 
