@@ -2,8 +2,9 @@ package main
 
 import (
 	"bufio"
-	"gitmsg/cli"
 	"os"
+
+	"github.com/alvii147/gitmsg/cli/cli"
 )
 
 func main() {

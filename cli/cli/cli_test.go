@@ -3,12 +3,13 @@ package cli_test
 import (
 	"bufio"
 	"bytes"
-	"gitmsg/cli"
-	"gitmsg/utils"
 	"strconv"
 	"strings"
 	"testing"
 	"unicode/utf8"
+
+	"github.com/alvii147/gitmsg/cli/cli"
+	"github.com/alvii147/gitmsg/cli/utils"
 )
 
 func TestIsValidSummaryValidInput(t *testing.T) {

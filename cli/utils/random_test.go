@@ -1,10 +1,11 @@
 package utils_test
 
 import (
-	"gitmsg/utils"
 	"strings"
 	"testing"
 	"unicode/utf8"
+
+	"github.com/alvii147/gitmsg/cli/utils"
 )
 
 func TestGenerateRandomString(t *testing.T) {

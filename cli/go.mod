@@ -1,4 +1,4 @@
-module gitmsg
+module github.com/alvii147/gitmsg/cli
 
 go 1.18
 
