@@ -8,7 +8,7 @@
 
 <div align="center">
 
-[![](https://img.shields.io/github/workflow/status/alvii147/gitmsg/GitHub%20CI%20Tests?label=Tests&logo=github)](https://github.com/alvii147/gitmsg/actions) [![](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli)
+[![](https://img.shields.io/github/actions/workflow/status/alvii147/gitmsg/github-ci.yml?branch=master&label=Tests&logo=github)](https://github.com/alvii147/gitmsg/actions) [![](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli)
 
 </div>
 
