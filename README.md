@@ -8,7 +8,7 @@
 
 <div align="center">
 
-[![GitHub CI](https://img.shields.io/github/actions/workflow/status/alvii147/gitmsg/github-ci.yml?branch=master&label=github%20ci&logo=github)](https://github.com/alvii147/gitmsg/actions) [![Go Report Card](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Ceasefire Now](https://badge.techforpalestine.org/default)](https://techforpalestine.org/learn-more)
+[![GitHub CI](https://img.shields.io/github/actions/workflow/status/alvii147/gitmsg/github-ci.yml?branch=master&label=Github%20CI&logo=github)](https://github.com/alvii147/gitmsg/actions) [![Go Report Card](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Ceasefire Now](https://badge.techforpalestine.org/default)](https://techforpalestine.org/learn-more)
 
 </div>
 
