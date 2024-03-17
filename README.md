@@ -1,3 +1,5 @@
+[![Support Palestine Banner](https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/banner-support.svg)](https://www.pcrf.net/)
+
 <p align="center">
     <img alt="gitmsg logo" src="img/gitmsg_logo.png" width=600 />
 </p>
@@ -8,7 +10,7 @@
 
 <div align="center">
 
-[![GitHub CI](https://img.shields.io/github/actions/workflow/status/alvii147/gitmsg/github-ci.yml?branch=master&label=Github%20CI&logo=github)](https://github.com/alvii147/gitmsg/actions) [![Go Report Card](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Ceasefire Now](https://badge.techforpalestine.org/default)](https://techforpalestine.org/learn-more)
+[![GitHub CI](https://img.shields.io/github/actions/workflow/status/alvii147/gitmsg/github-ci.yml?branch=master&label=Github%20CI&logo=github)](https://github.com/alvii147/gitmsg/actions) [![Go Report Card](https://goreportcard.com/badge/github.com/alvii147/gitmsg/cli)](https://goreportcard.com/report/github.com/alvii147/gitmsg/cli) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 </div>
 
