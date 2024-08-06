@@ -1,4 +1,4 @@
-[![Support Palestine Banner](https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/banner-support.svg)](https://www.pcrf.net/)
+[![Free Palestine](https://github.com/alvii147/hinds-banner/blob/main/github/free-palestine-crimson.svg)](https://www.pcrf.net/)
 
 <p align="center">
     <img alt="gitmsg logo" src="img/gitmsg_logo.png" width=600 />
