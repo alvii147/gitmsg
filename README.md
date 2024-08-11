@@ -1,4 +1,6 @@
-[![Free Palestine](https://github.com/alvii147/hinds-banner/blob/main/github/free-palestine-crimson.svg)](https://www.pcrf.net/)
+[![Free Palestine](https://hinds-banner.vercel.app/free-palestine?variant=crimson)](https://www.pcrf.net/)
+
+[![Genocide Watch](https://hinds-banner.vercel.app/genocide-watch?variant=crimson)](https://www.pcrf.net/)
 
 <p align="center">
     <img alt="gitmsg logo" src="img/gitmsg_logo.png" width=600 />
